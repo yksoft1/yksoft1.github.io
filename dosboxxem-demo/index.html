@@ -9,18 +9,22 @@
 			Based on dreamlayers'<a href="https://github.com/dreamlayers/em-dosbox">em-dosbox</a>, I made my fork of joncampbell123's <a href="https://github.com/joncampbell123/dosbox-x/">DOSBox-X</a> buildable on Emscripten.<br />
 			<a href="https://github.com/yksoft1/dosbox-x-vanilla-sdl/tree/emscripten">Emscripten branch in my repo</a><br />
 			For some reason, <a href="https://github.com/kripken/emscripten/issues/7123">asm2wasm doesn't like -O3 for my build with Emtepretify on</a>. So the PC-98 game demos below run with slow graphics, not suitable for Danmaku shooting.<br />
-			New: cycles=max is too clicky and crashy, and I found why fixed cycles didn't work and fixed it. <br />
-			Demos now all use fixed cycles=12000. If you feel the CPU usage is too low, push F12+Shift+"+" to speed up. <br />
+			Demos now all use fixed cycles=12000. If you feel the CPU usage is too low, push F9+Shift+"+" to speed up. <br />
+			New: <a href="https://github.com/WebAssembly/binaryen/commit/403be53fb84645b9338454681792538af876cf87">asm2wasm problem fixed</a>. Thank you kripken! now Emtepretified builds are also -O3.<br>
+			Emtepretified builds (more stable, can run the DOS shell and .BAT files but slower)<br />
 			<a href="th2e.html">Demo 1: Touhou 2 Touhou-Fuumaroku</a><br />
 			<a href="th4e.html">Demo 2: Touhou 4 Touhou-Gensokyou</a><br />
 			<a href="th5e.html">Demo 3: Touhou 5 Touhou-Kaikidan</a><br />
-			<a href="th3e.html">NEW: Demo 4: Touhou 3 Touhou-Yumejikuu</a><br />
+			<a href="th3e.html">Demo 4: Touhou 3 Touhou-Yumejikuu</a><br />
+			Touhou 1's PSG noise channel sounds incorrect, but I will put it here as reference.<br />
+			<a href="th1e.html">Demo 5: Touhou 1 Touhou-Reiiden</a><br />
 			<br />	
-			New: non-Emtepretified builds (faster, but unstable. Switch to other tabs and see it to hang!)<br />
+			non-Emtepretified builds (faster, but less stable.)<br />
 			<a href="th2.html">Demo 1: Touhou 2 Touhou-Fuumaroku</a><br />
 			<a href="th4.html">Demo 2: Touhou 4 Touhou-Gensokyou</a><br />
 			<a href="th5.html">Demo 3: Touhou 5 Touhou-Kaikidan</a><br />
-			<a href="th3.html">NEW: Demo 4: Touhou 3 Touhou-Yumejikuu</a><br />
+			<a href="th3.html">Demo 4: Touhou 3 Touhou-Yumejikuu</a><br />
+			<a href="th1.html">Demo 5: Touhou 1 Touhou-Reiiden</a><br />
 			<br />	
 			<div>
 			Only tested in Firefox 60 ESR and Chromium 61 (64-bit native on Windows 8.1, AMD HD6750). May not run well on other platforms.<br />
