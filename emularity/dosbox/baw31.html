@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ASCII BadApple win3.1</title>
+	<style>
+		#controls {
+		display: inline-block;
+		float: right;
+		vertical-align: top;
+		margin-top: 30px;
+		margin-right: 20px;
+      }
+	</style>
+  </head>
+  <body>
+	<span id='controls'>
+		<span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(true, false)">	
+		</span>
+	</span>
+
+    <canvas id="canvas" style="width: 50%; height: 50%; display: block; margin: 0 auto;"/>
+    <script type="text/javascript" src="es6-promise.js"></script>
+    <script type="text/javascript" src="browserfs.min.js"></script>
+    <script type="text/javascript" src="loader.js"></script>
+    <script type="text/javascript">
+      var emulator = new Emulator(document.querySelector("#canvas"),
+        null,
+        new DosBoxLoader(PC98DosBoxLoader.emulatorJS("dosbox.js"),
+          DosBoxLoader.emulatorWASM("dosbox.wasm"),
+          DosBoxLoader.locateAdditionalEmulatorJS(locateAdditionalFiles),
+          DosBoxLoader.nativeResolution(640, 480),
+
+          PC98DosBoxLoader.mountZip("c",
+            PC98DosBoxLoader.fetchFile("Game File",
+              "ba3.zip")),
+
+          PC98DosBoxLoader.startExe("win31\\win.com")))
+      emulator.start({ waitAfterDownloading: true });
+
+      function locateAdditionalFiles(filename) {
+        if (filename === "dosbox.html.mem") {
+          return "emulators/em-dosbox/dosbox-sync.mem";
+        }
+        return "emulators/dosbox-x/"+ filename;
+      }
+    </script>
+  </body>
+</html>
