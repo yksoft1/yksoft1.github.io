@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Neko Project 21/W: Windows 95 OSR</title>
+	<style>
+		#controls {
+		display: inline-block;
+		float: right;
+		vertical-align: top;
+		margin-top: 30px;
+		margin-right: 20px;
+      }
+	  #inst	{
+	  display: block;
+	  text-align: center;
+	  }
+	  
+	</style>
+  </head>
+  <body>
+	<span id='controls'>
+		<span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(true, false)">	
+		</span>
+	</span>
+
+	<div>
+    <canvas id="canvas" style="width: 50%; height: 50%; display: block; margin: 0 auto;"/>
+	</div>
+	
+	<div id='inst'>
+	Instruction<br />
+	1. You should use a keyboard with numeric keypad<br />
+	2. Push Ctrl+F11 for a menu, Ctrl+F12 to grab the mouse.
+	</div>
+    <script type="text/javascript" src="es6-promise.js"></script>
+    <script type="text/javascript" src="browserfs.min.js"></script>
+    <script type="text/javascript" src="loader.js"></script>
+    <script type="text/javascript">
+      var emulator = new Emulator(document.querySelector("#canvas"),
+        null,
+        new NP2Loader(NP2Loader.emulatorJS("np21w-sdl2.js"),
+			NP2Loader.emulatorWASM("np21w-sdl2.wasm"),
+          NP2Loader.locateAdditionalEmulatorJS(locateAdditionalFiles),
+          NP2Loader.nativeResolution(640, 400),
+		  NP2Loader.extraArgs('/emulator/np2/w95tst/w95tst2.hdi'),
+
+          NP2Loader.mountZip("np2",
+            NP2Loader.fetchFile("Config and Font files",
+              "np2wbios.zip")),
+		  NP2Loader.mountZip("np2/w95tst",
+            NP2Loader.fetchFile("Game files",
+              "w95tst2.zip"))
+			  ));
+			  
+      emulator.start({ waitAfterDownloading: true });
+
+      function locateAdditionalFiles(filename) {
+        if (filename === "np2.html.mem") {
+          return "np2.html.mem";
+        }
+        return "emulators/np2/"+ filename;
+      }
+    </script>
+  </body>
+</html>
