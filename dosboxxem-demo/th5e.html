@@ -1382,8 +1382,9 @@
 	  
 	  var oldBkColor = null ;
 	  	function kd(e, keyCode)
-		{
-			oldBkColor = e.style.background;
+		{	
+			if (oldBkColor == null)
+				oldBkColor = e.style.background;
 			e.style.background="red";
 			__triggerEvent(document.getElementById("canvas"), "keydown", keyCode);
 		}
