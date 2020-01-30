@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.56, maximum-scale=0.56, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true" />
     <title>Emscripten-Generated Code</title>
     <style>
       body {
         font-family: arial;
         margin: 0;
         padding: none;
+		touch-action: none;
       }
 
       .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
@@ -98,7 +101,60 @@
         color: white;
         font-family: 'Lucida Console', Monaco, monospace;
         outline: none;
-      }
+      } 
+
+      table
+	  {
+		border: none;
+	  }
+	  td.button_td
+	  {
+		width: 8%; 
+		height: 53pt;
+	  }
+	  td.button_td1
+	  {
+		width: 2%; 
+		height: 53pt;
+	  }
+	  td.button_td2
+	  {
+		width: 9%; 
+		height: 53pt;
+	  }
+	  input.inputbutton1
+	  {
+		width: 120%;
+		height: 100%;
+		font-size: 36pt;
+		padding: 3pt 0;
+	  }
+	  input.inputbutton2
+	  {
+		width: 85%; 
+		height: 85%;
+		font-size: 24pt;
+	  }
+	  input.inputbutton3
+	  {
+		width: 85%; 
+		height: 85%;
+		font-size: 16pt;
+	  }
+	  div.emumain
+	  {
+		display: block;
+		width: 100%;
+		position: fixed;
+		left: 0%;
+		top: 40pt;
+	  }
+	  div.softkbd
+	  {
+		width: 100%;
+		position: fixed;
+		bottom: 0pt;
+	  }	
     </style>
   </head>
   <body>
@@ -1216,6 +1272,38 @@
     </div>
     <textarea id="output" rows="8"></textarea>
 
+	<div id="softkbd" class="softkbd">
+	<table style="margin: auto;">
+	<tr>
+	<td class='button_td'></td>
+	<td class='button_td'><input class='inputbutton1' type="button" value="^" onpointerdown='kd(38);' onpointerup='ku(38);' ></td>
+	<td class="button_td"></td>
+	<td class="button_td1"></td>
+	<td class="button_td"><input class='inputbutton3' type="button" value="Esc" onpointerdown='kd(27);' onpointerup='ku(27);'></td>
+	<td class="button_td"><input class='inputbutton3' type="button" value="Space" onpointerdown='kd(32);' onpointerup='ku(32);'></td>
+	</tr>
+	<tr>
+	<td><input class='inputbutton1' type="button" value="<" onpointerdown='kd(37);' onpointerup='ku(37);'></td>
+	<td></td>
+	<td><input class='inputbutton1' type="button" value=">" onpointerdown='kd(39);' onpointerup='ku(39);'></td>
+	<td></td>
+	<td class="button_td"><input class='inputbutton3' type="button" value="Shift" onpointerdown='kd(16);' onpointerup='ku(16);'></td>
+	<td class="button_td"><input class='inputbutton3' type="button" value="Return" onpointerdown='kd(13);' onpointerup='ku(13);' ></td>
+	</tr>
+	<tr>
+	</tr>
+	<tr>
+	<td></td>
+	<td><input class='inputbutton1' type="button" value="v" onpointerdown='kd(40);' onpointerup='ku(40);'></td>
+	<td></td>
+	<td></td>
+	<td class="button_td"><input class='inputbutton2' type="button" value="X" onpointerdown='kd(88);' onpointerup='ku(88);' ></td>
+	<td class="button_td"><input class='inputbutton2' type="button" value="Z" onpointerdown='kd(90);' onpointerup='ku(90);'></td>
+	</tr>
+	</table>
+	<div style="height: 30pt;" />
+	</div>
+
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
@@ -1296,6 +1384,37 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
+
+	  	function kd(keyCode)
+		{
+			__triggerEvent(document.getElementById("canvas"), "keydown", keyCode);
+		}
+		function ku(keyCode)
+		{
+			__triggerEvent(document.getElementById("canvas"), "keyup", keyCode);
+		}
+		
+		function __triggerEvent(el, evname, keyCode)
+		{
+			var eventObj = document.createEventObject ?
+				document.createEventObject() : document.createEvent("Events");
+		  
+			if(eventObj.initEvent){
+			  eventObj.initEvent(evname, true, true);
+			}
+		  
+			eventObj.keyCode = keyCode;
+			eventObj.which = keyCode;
+			
+			el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("onkeydown", eventObj); 
+		} 
+
+		document.getElementById('softkbd').addEventListener("touchstart", function(e){
+			e.preventDefault();
+		},{passive: false});
+		document.getElementById('softkbd').addEventListener("touchmove", function(e){
+			e.preventDefault();
+		},{passive: false});
     </script>
     <script async type="text/javascript" src="th2.js"></script>
   </body>
